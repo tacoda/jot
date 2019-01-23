@@ -17,7 +17,12 @@ class PostsController extends Controller
     }
 
     public function store(Request $request) {
-        Post::create($request->all());
+        $validated = $request->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'content' => ['required', 'min:3']
+        ]);
+        Post::create($validated);
+//        Post::create($request->all());
         return redirect('/posts');
     }
 

@@ -21,7 +21,7 @@
             <label class="label" for="body">Body</label>
 
             <div class="control">
-                <textarea name="body" class="textarea">{{ $post->body }}</textarea>
+                <textarea name="content" class="textarea">{{ $post->content }}</textarea>
             </div>
         </div>
 

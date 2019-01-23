@@ -14,3 +14,6 @@
 Route::get('/', 'HomeController@index');
 
 Route::resource('posts', 'PostsController');
+
+Route::post('/posts/{post}/comments', 'CommentsController@store');
+Route::patch('/comments/{comment}', 'CommentsController@update');
