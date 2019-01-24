@@ -11,4 +11,12 @@ class Comment extends Model
     public function post() {
         return $this->belongsTo(Post::class);
     }
+
+    public function upvote() {
+        $this->update(['votes' => $this->votes + 1]);
+    }
+
+    public function downvote() {
+        $this->update(['votes' => $this->votes - 1]);
+    }
 }

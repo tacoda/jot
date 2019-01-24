@@ -18,9 +18,7 @@ class CommentsController extends Controller
     }
 
     public function update(Request $request, Comment $comment) {
-        $comment->update([
-            'votes' => $request->get('vote') === 'up' ? $comment->votes + 1 : $comment->votes - 1
-        ]);
+        $request->get('vote') === 'up' ? $comment->upvote() : $comment->downvote();
         return back();
     }
 }
