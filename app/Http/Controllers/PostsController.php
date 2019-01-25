@@ -7,8 +7,13 @@ use App\Post;
 
 class PostsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     public function index() {
         $posts = Post::all();
+//        $posts = Post::where('owner_id', auth()->id())->get();
         return view('posts.index')->with(['posts' => $posts]);
     }
 
@@ -17,11 +22,12 @@ class PostsController extends Controller
     }
 
     public function store(Request $request) {
-        $validated = $request->validate([
+        $attributes = $request->validate([
             'title' => ['required', 'min:3', 'max:255'],
             'content' => ['required', 'min:3']
         ]);
-        Post::create($validated);
+        $attributes['owner_id'] = auth()->id();
+        Post::create($attributes);
 //        Post::create($request->all());
         return redirect('/posts');
     }
