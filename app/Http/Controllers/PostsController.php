@@ -23,9 +23,10 @@ class PostsController extends Controller
 
     public function store() {
         $attributes = $this->validatePost();
-        $attributes['owner_id'] = auth()->id();
-        $post = Post::create($attributes);
-        event(new PostWasCreated($post));
+        auth()->user()->posts()->create($attributes);
+//        $attributes['owner_id'] = auth()->id();
+//        $post = Post::create($attributes);
+//        event(new PostWasCreated($post));
         session()->flash('message', 'Post created!');
         return redirect('/posts');
     }
