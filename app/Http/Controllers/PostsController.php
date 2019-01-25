@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\PostCreated;
+use App\Events\PostWasCreated;
 use App\Post;
-use \Mail;
 
 class PostsController extends Controller
 {
@@ -26,7 +25,7 @@ class PostsController extends Controller
         $attributes = $this->validatePost();
         $attributes['owner_id'] = auth()->id();
         $post = Post::create($attributes);
-        Mail::to($post->owner->email)->send(new PostCreated($post));
+        event(new PostWasCreated($post));
         return redirect('/posts');
     }
 
