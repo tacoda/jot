@@ -27,4 +27,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // TODO: Add a UserController and use this method there
+    public function posts() {
+        return $this->hasMany(Post::class, 'owner_id');
+    }
 }

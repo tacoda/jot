@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Mail\PostCreated;
 use App\Post;
+use \Mail;
 
 class PostsController extends Controller
 {
@@ -21,14 +22,11 @@ class PostsController extends Controller
         return view('posts.create');
     }
 
-    public function store(Request $request) {
-        $attributes = $request->validate([
-            'title' => ['required', 'min:3', 'max:255'],
-            'content' => ['required', 'min:3']
-        ]);
+    public function store() {
+        $attributes = $this->validatePost();
         $attributes['owner_id'] = auth()->id();
-        Post::create($attributes);
-//        Post::create($request->all());
+        $post = Post::create($attributes);
+        Mail::to($post->owner->email)->send(new PostCreated($post));
         return redirect('/posts');
     }
 
@@ -41,10 +39,10 @@ class PostsController extends Controller
         return view('posts.edit')->with(['post' => $post]);
     }
 
-    public function update(Request $request, Post $post) {
+    public function update(Post $post) {
         $this->authorize('update', $post);
-        // TODO: Validation
-        $post->update($request->all());
+        $attributes = $this->validatePost();
+        $post->update($attributes);
         return redirect('/posts');
     }
 
@@ -52,5 +50,12 @@ class PostsController extends Controller
         $this->authorize('update', $post);
         $post->delete();
         return redirect('/posts');
+    }
+
+    private function validatePost() {
+        return request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'content' => ['required', 'min:3']
+        ]);
     }
 }

@@ -42,4 +42,6 @@
             </div>
         </div>
     </form>
+
+    @include('errors')
 @endsection
