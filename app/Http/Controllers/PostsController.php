@@ -37,15 +37,19 @@ class PostsController extends Controller
     }
 
     public function edit(Post $post) {
+        $this->authorize('update', $post);
         return view('posts.edit')->with(['post' => $post]);
     }
 
     public function update(Request $request, Post $post) {
+        $this->authorize('update', $post);
+        // TODO: Validation
         $post->update($request->all());
         return redirect('/posts');
     }
 
     public function destroy(Post $post) {
+        $this->authorize('update', $post);
         $post->delete();
         return redirect('/posts');
     }

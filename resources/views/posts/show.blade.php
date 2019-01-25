@@ -8,9 +8,11 @@
     <div class="content">
         {{ $post->content }}
 
+        @can('update', $post)
         <p>
             <a href="/posts/{{ $post->id }}/edit">Edit</a>
         </p>
+        @endcan
     </div>
 
     @if($post->comments->count())
@@ -38,6 +40,7 @@
     </div>
     @endif
 
+    @if(auth()->check())
     <form class="box" method="POST" action="/posts/{{ $post->id }}/comments">
         @csrf
         <div class="field">
@@ -56,5 +59,6 @@
 
         @include('errors')
     </form>
+    @endif
 
 @endsection
