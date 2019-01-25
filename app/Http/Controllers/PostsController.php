@@ -26,6 +26,7 @@ class PostsController extends Controller
         $attributes['owner_id'] = auth()->id();
         $post = Post::create($attributes);
         event(new PostWasCreated($post));
+        session()->flash('message', 'Post created!');
         return redirect('/posts');
     }
 
