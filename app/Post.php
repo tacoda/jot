@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'title', 'content', 'owner_id'
+        'title', 'content', 'owner_id', 'votes'
     ];
 
     public function comments() {
@@ -19,7 +19,11 @@ class Post extends Model
     }
 
     public function addComment($comment) {
-        $comment['votes'] = 0;
+//        $comment['votes'] = 0;
         $this->comments()->create($comment);
+    }
+
+    public function scopePopular($query, $take = 10) {
+        return $query->orderBy('votes', 'desc')->take($take)->get();
     }
 }
