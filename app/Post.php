@@ -19,7 +19,6 @@ class Post extends Model
     }
 
     public function addComment($comment) {
-//        $comment['votes'] = 0;
         $this->comments()->create($comment);
     }
 
