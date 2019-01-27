@@ -17,8 +17,8 @@ class CommentsController extends Controller
         return back();
     }
 
-    public function update(Request $request, Comment $comment) {
-        $request->get('vote') === 'up' ? $comment->upvote() : $comment->downvote();
-        return back();
-    }
+//    public function update(Request $request, Comment $comment) {
+//        $request->get('vote') === 'up' ? $comment->upvote() : $comment->downvote();
+//        return back();
+//    }
 }

@@ -6,17 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['content', 'votes'];
+    protected $fillable = ['content'];
 
     public function post() {
         return $this->belongsTo(Post::class);
-    }
-
-    public function upvote() {
-        $this->update(['votes' => $this->votes + 1]);
-    }
-
-    public function downvote() {
-        $this->update(['votes' => $this->votes - 1]);
     }
 }

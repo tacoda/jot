@@ -18,7 +18,6 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('owner_id');
             $table->string('title');
             $table->text('content');
-            $table->integer('votes')->default(0);
             $table->timestamps();
 
             $table->foreign('owner_id')

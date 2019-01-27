@@ -21,20 +21,20 @@
             <div>
                 {{ $comment->content }}
 
-                <p>
-                    Votes: {{ $comment->votes }}
-                </p>
-                <form method="POST" action="/comments/{{ $comment->id }}">
-                    @method('PATCH')
-                    @csrf
-                    <button type="submit" class="button is-link" onClick="this.form.submit()" name="vote" value="up">Upvote</button>
-                </form>
+                {{--<p>--}}
+                    {{--Votes: {{ $comment->votes }}--}}
+                {{--</p>--}}
+                {{--<form method="POST" action="/comments/{{ $comment->id }}">--}}
+                    {{--@method('PATCH')--}}
+                    {{--@csrf--}}
+                    {{--<button type="submit" class="button is-link" onClick="this.form.submit()" name="vote" value="up">Upvote</button>--}}
+                {{--</form>--}}
 
-                <form method="POST" action="/comments/{{ $comment->id }}">
-                    @method('PATCH')
-                    @csrf
-                    <button type="submit" class="button is-danger" onClick="this.form.submit()" name="vote" value="down">Downvote</button>
-                </form>
+                {{--<form method="POST" action="/comments/{{ $comment->id }}">--}}
+                    {{--@method('PATCH')--}}
+                    {{--@csrf--}}
+                    {{--<button type="submit" class="button is-danger" onClick="this.form.submit()" name="vote" value="down">Downvote</button>--}}
+                {{--</form>--}}
             </div>
         @endforeach
     </div>

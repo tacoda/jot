@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Likeable;
 
 class Post extends Model
 {
+    use Likeable;
+
     protected $fillable = [
-        'title', 'content', 'owner_id', 'votes'
+        'title', 'content', 'owner_id'
     ];
 
     public function comments() {
