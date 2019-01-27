@@ -35,5 +35,7 @@ class PostsTest extends TestCase
         $this->post('/posts', $attributes)->assertRedirect('/login');
     }
 
+    // TODO: Authorization tests
+
     // TODO: Validation tests
 }
