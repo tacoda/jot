@@ -25,4 +25,15 @@ class Post extends Model
         $comment['owner_id'] = auth()->id();
         $this->comments()->create($comment);
     }
+
+    public function deleteAllComments() {
+        $this->comments()->get()->each(function($comment) {
+            $comment->delete();
+        });
+    }
+
+    public function delete() {
+        $this->deleteAllLikes();
+        parent::delete();
+    }
 }

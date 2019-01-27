@@ -37,7 +37,9 @@ class CommentsController extends Controller
     public function destroy(Comment $comment) {
         $this->authorize('update', $comment);
         $postId = $comment->post()->first()->id;
+        $comment->deleteAllLikes();
         $comment->delete();
+        session()->flash('message', 'Comment deleted!');
         return redirect('/posts/' . $postId);
     }
 

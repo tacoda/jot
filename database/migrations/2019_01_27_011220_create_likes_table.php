@@ -17,10 +17,13 @@ class CreateLikesTable extends Migration
             $table->unsignedInteger('user_id')->index('user_index');
             $table->unsignedInteger('likeable_id');
             $table->string('likeable_type');
+            $table->timestamps();
 
             $table->primary(['user_id', 'likeable_id', 'likeable_type']);
-            // NOTE: Foreign key for user_id?
-            $table->timestamps();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 

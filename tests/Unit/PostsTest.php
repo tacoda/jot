@@ -36,4 +36,15 @@ class PostsTest extends TestCase
         $post = $this->createPost();
         $this->assertNotEquals(0, $post->owner()->first()->id);
     }
+
+    /** @test */
+    public function a_post_will_delete_all_of_its_comments_when_it_is_deleted() {
+        $this->signIn();
+        $post = $this->createPost();
+        $post->addComment(['content' => 'My First Comment']);
+        $post->addComment(['content' => 'My Second Comment']);
+        $this->assertCount(2, $post->comments()->get());
+        $post->delete();
+        $this->assertCount(0, $post->comments()->get());
+    }
 }

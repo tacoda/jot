@@ -30,7 +30,7 @@
 
         <div class="field">
             <div class="control">
-                <button type="submit" class="button">Delete Comment</button>
+                <button type="submit" class="button is-danger">Delete Comment</button>
             </div>
         </div>
     </form>

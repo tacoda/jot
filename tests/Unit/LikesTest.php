@@ -50,6 +50,19 @@ class LikesTest extends TestCase
     }
 
     /** @test */
+    public function a_post_will_delete_all_of_its_likes_when_it_is_deleted() {
+        $post = $this->createPost();
+        $post->like();
+        $this->signIn();
+        $post->like();
+        $this->signIn();
+        $post->like();
+        $this->assertEquals(3, $post->likesCount());
+        $post->delete();
+        $this->assertEquals(0, $post->likesCount());
+    }
+
+    /** @test */
     public function a_user_can_like_a_comment() {
         $comment = $this->createComment();
         $comment->like();
@@ -79,5 +92,18 @@ class LikesTest extends TestCase
         $comment = $this->createComment();
         $comment->like();
         $this->assertEquals(1, $comment->likesCount());
+    }
+
+    /** @test */
+    public function a_comment_will_delete_all_of_its_likes_when_it_is_deleted() {
+        $comment = $this->createComment();
+        $comment->like();
+        $this->signIn();
+        $comment->like();
+        $this->signIn();
+        $comment->like();
+        $this->assertEquals(3, $comment->likesCount());
+        $comment->delete();
+        $this->assertEquals(0, $comment->likesCount());
     }
 }

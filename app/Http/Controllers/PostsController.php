@@ -52,7 +52,10 @@ class PostsController extends Controller
 
     public function destroy(Post $post) {
         $this->authorize('update', $post);
+        $post->deleteAllComments();
+        $post->deleteAllLikes();
         $post->delete();
+        session()->flash('message', 'Post deleted!');
         return redirect('/posts');
     }
 

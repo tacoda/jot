@@ -24,4 +24,8 @@ trait Likeable {
     public function likesCount() {
         return $this->likes()->count();
     }
+
+    public function deleteAllLikes() {
+        $this->likes()->where('likeable_type', get_class($this))->where('likeable_id', $this->id)->delete();
+    }
 }

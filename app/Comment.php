@@ -18,4 +18,9 @@ class Comment extends Model
     public function owner() {
         return $this->belongsTo(User::class);
     }
+
+    public function delete() {
+        $this->deleteAllLikes();
+        parent::delete();
+    }
 }
