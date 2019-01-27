@@ -25,8 +25,4 @@ class Post extends Model
         $comment['owner_id'] = auth()->id();
         $this->comments()->create($comment);
     }
-
-    public function scopePopular($query, $take = 10) {
-        return $query->orderBy('votes', 'desc')->take($take)->get();
-    }
 }

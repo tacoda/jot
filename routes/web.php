@@ -12,7 +12,9 @@
 */
 
 Auth::routes();
-
+Route::get('/', function() {
+    return redirect('/posts');
+});
 Route::resource('posts', 'PostsController');
 Route::patch('/posts/{post}/like', 'PostsController@like');
 Route::patch('/posts/{post}/unlike', 'PostsController@unlike');
