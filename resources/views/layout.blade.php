@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="/css/app.css">
     </head>
     <body>
+        @include('nav')
         @include('flash')
 
         <div id="app" class="container">

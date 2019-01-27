@@ -10,7 +10,7 @@
         @csrf
 
         <div class="field">
-            <label class="label" for="body">Body</label>
+            <label class="label" for="content">Content</label>
 
             <div class="control">
                 <textarea name="content" class="textarea">{{ $comment->content }}</textarea>
