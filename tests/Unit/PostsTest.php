@@ -26,10 +26,8 @@ class PostsTest extends TestCase
     /** @test */
     public function a_post_can_have_comments() {
         $post = $this->createPost();
-        $comment1 = ['content' => 'My First Comment'];
-        $comment2 = ['content' => 'My Second Comment'];
-        $post->addComment($comment1);
-        $post->addComment($comment2);
+        $post->addComment(['content' => 'My First Comment']);
+        $post->addComment(['content' => 'My Second Comment']);
         $this->assertCount(2, $post->comments()->get());
     }
 

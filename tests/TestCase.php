@@ -22,4 +22,8 @@ abstract class TestCase extends BaseTestCase
     public function createPost($attributes = []) {
         return factory('App\Post')->create($attributes);
     }
+
+    public function createComment($attributes = []) {
+        return factory('App\Comment')->create($attributes);
+    }
 }
