@@ -10500,3 +10500,9 @@ html {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.info {
+  background-color: #6cb2eb;
+  margin-top: 1em;
+  text-align: center;
+}
+

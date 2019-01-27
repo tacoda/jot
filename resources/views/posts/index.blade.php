@@ -5,19 +5,11 @@
 @section('content')
     <h1 class="title">Posts</h1>
 
-    <ul>
-        @foreach($posts as $post)
-            <li>
-                <a href="/posts/{{ $post->id }}">
-                    {{ $post->title }}
-                </a>
-            </li>
-        @endforeach
-    </ul>
-
-    @if(session('message'))
-        <div>
-            <p>{{ session('message') }}</p>
+    @foreach($posts as $post)
+        <div class="box">
+            <a href="/posts/{{ $post->id }}">
+                <h3>{{ $post->title }}</h3>
+            </a>
         </div>
-    @endif
+    @endforeach
 @endsection

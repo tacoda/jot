@@ -19,22 +19,26 @@
     <div class="box">
         @foreach($post->comments as $comment)
             <div>
-                {{ $comment->content }}
+                <p>
+                    {{ $comment->content }}
+                </p>
 
-                {{--<p>--}}
-                    {{--Votes: {{ $comment->votes }}--}}
-                {{--</p>--}}
-                {{--<form method="POST" action="/comments/{{ $comment->id }}">--}}
-                    {{--@method('PATCH')--}}
-                    {{--@csrf--}}
-                    {{--<button type="submit" class="button is-link" onClick="this.form.submit()" name="vote" value="up">Upvote</button>--}}
-                {{--</form>--}}
-
-                {{--<form method="POST" action="/comments/{{ $comment->id }}">--}}
-                    {{--@method('PATCH')--}}
-                    {{--@csrf--}}
-                    {{--<button type="submit" class="button is-danger" onClick="this.form.submit()" name="vote" value="down">Downvote</button>--}}
-                {{--</form>--}}
+                <p>
+                    Likes: {{ $comment->likesCount() }}
+                </p>
+                @if(! $comment->isLiked())
+                <form method="POST" action="/comments/{{ $comment->id }}/like">
+                    @method('PATCH')
+                    @csrf
+                    <button type="submit" class="button is-link" onClick="this.form.submit()"><i class="fas fa-thumbs-up"></i></button>
+                </form>
+                @else
+                <form method="POST" action="/comments/{{ $comment->id }}/unlike">
+                    @method('PATCH')
+                    @csrf
+                    <button type="submit" class="button is-danger" onClick="this.form.submit()"><i class="fas fa-thumbs-down"></i></button>
+                </form>
+                @endif
             </div>
         @endforeach
     </div>

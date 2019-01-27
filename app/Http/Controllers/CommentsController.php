@@ -24,6 +24,20 @@ class CommentsController extends Controller
 //        return back();
 //    }
 
+    public function like(Comment $comment) {
+        if(! $comment->isLiked()) {
+            $comment->like();
+        }
+        return back();
+    }
+
+    public function unlike(Comment $comment) {
+        if($comment->isLiked()) {
+            $comment->unlike();
+        }
+        return back();
+    }
+
     // TODO: Authorization for edit and delete
     // TODO: Validation for edit
 
