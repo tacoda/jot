@@ -20,4 +20,14 @@ class UsersTest extends TestCase
         ]);
         $this->assertEquals('New Title', $user->posts()->first()->title);
     }
+
+    /** @test */
+    public function a_user_can_own_a_comment() {
+        $user = factory('App\User')->create();
+        factory('App\Comment')->create([
+            'owner_id' => $user->id,
+            'content' => 'New Content'
+        ]);
+        $this->assertEquals('New Content', $user->comments()->first()->content);
+    }
 }

@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Post;
 
 class PostsTest extends TestCase
 {
@@ -37,20 +36,4 @@ class PostsTest extends TestCase
         $post = $this->createPost();
         $this->assertNotEquals(0, $post->owner()->first()->id);
     }
-
-    // TODO: Post like relation?
-
-    // TODO: Fix this test using likes instead of votes
-    /** @test */
-//    public function it_fetches_popular_posts() {
-//        factory('App\User')->create();
-//        factory('App\Post', 10)->create();
-//        factory('App\Post')->create(['votes' => 10]);
-//        $mostPopular = factory('App\Post')->create(['votes' => 20]);
-//
-//        $posts = Post::popular();
-//
-//        $this->assertEquals($mostPopular->id, $posts->first()->id);
-//        $this->assertCount(10, $posts);
-//    }
 }

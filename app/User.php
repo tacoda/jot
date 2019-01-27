@@ -28,8 +28,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    // TODO: Add a UserController and use this method there
     public function posts() {
         return $this->hasMany(Post::class, 'owner_id');
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class, 'owner_id');
     }
 }
