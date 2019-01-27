@@ -9,10 +9,12 @@ use App\Comment;
 
 class CommentsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function store(Request $request, Post $post) {
-        $attributes = $request->validate([
-            'content' => 'required'
-        ]);
+        $attributes = $this->validateComment();
         $post->addComment($attributes);
         return back();
     }
@@ -21,4 +23,13 @@ class CommentsController extends Controller
 //        $request->get('vote') === 'up' ? $comment->upvote() : $comment->downvote();
 //        return back();
 //    }
+
+    // TODO: Authorization for edit and delete
+    // TODO: Validation for edit
+
+    private function validateComment() {
+        return request()->validate([
+            'content' => ['required', 'min:3']
+        ]);
+    }
 }

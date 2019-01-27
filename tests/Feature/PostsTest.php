@@ -14,7 +14,7 @@ class PostsTest extends TestCase
     public function a_user_can_create_a_post() {
 //        $this->withExceptionHandling();
         // Given I am a user who is logged in
-        $this->actingAs(factory('App\User')->create());
+        $this->signIn();
         // When I create a new post
         $attributes = [
             'title' => 'My Title',

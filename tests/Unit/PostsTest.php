@@ -13,22 +13,19 @@ class PostsTest extends TestCase
 
     /** @test */
     public function a_post_has_a_title() {
-        factory('App\User')->create();
-        $post = factory('App\Post')->create(['title' => 'My Title']);
+        $post = $this->createPost(['title' => 'My Title']);
         $this->assertEquals('My Title', $post->title);
     }
 
     /** @test */
     public function a_post_has_content() {
-        factory('App\User')->create();
-        $post = factory('App\Post')->create(['content' => 'My Content']);
+        $post = $this->createPost(['content' => 'My Content']);
         $this->assertEquals('My Content', $post->content);
     }
 
     /** @test */
     public function a_post_can_have_comments() {
-        factory('App\User')->create();
-        $post = factory('App\Post')->create();
+        $post = $this->createPost();
         $comment1 = ['content' => 'My First Comment'];
         $comment2 = ['content' => 'My Second Comment'];
         $post->addComment($comment1);
@@ -38,7 +35,7 @@ class PostsTest extends TestCase
 
     /** @test */
     public function a_post_belongs_to_a_user() {
-        $post = factory('App\Post')->create();
+        $post = $this->createPost();
         $this->assertNotEquals(0, $post->owner()->first()->id);
     }
 

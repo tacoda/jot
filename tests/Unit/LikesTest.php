@@ -10,41 +10,40 @@ class LikesTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected $post;
+
+    public function setUp() {
+        parent::setUp();
+        $this->post = $this->createPost();
+        $this->signIn();
+    }
+
     /** @test */
     public function a_user_can_like_a_post() {
-        $post = factory('App\Post')->create();
-        $user = factory('App\User')->create();
-        $this->actingAs($user);
-        $post->like();
+        $this->post->like();
         $this->assertDatabaseHas('likes', [
-            'user_id' => $user->id,
-            'likeable_id' => $post->id,
-            'likeable_type' => get_class($post)
+            'user_id' => $this->user->id,
+            'likeable_id' => $this->post->id,
+            'likeable_type' => get_class($this->post)
         ]);
-        $this->assertTrue($post->isLiked());
+        $this->assertTrue($this->post->isLiked());
     }
 
     /** @test */
     public function a_user_can_unlike_a_post() {
-        $post = factory('App\Post')->create();
-        $user = factory('App\User')->create();
-        $this->actingAs($user);
-        $post->like();
-        $post->unlike();
+        $this->post->like();
+        $this->post->unlike();
         $this->assertDatabaseMissing('likes', [
-            'user_id' => $user->id,
-            'likeable_id' => $post->id,
-            'likeable_type' => get_class($post)
+            'user_id' => $this->user->id,
+            'likeable_id' => $this->post->id,
+            'likeable_type' => get_class($this->post)
         ]);
-        $this->assertFalse($post->isLiked());
+        $this->assertFalse($this->post->isLiked());
     }
 
     /** @test */
     public function a_post_knows_how_many_likes_it_has() {
-        $post = factory('App\Post')->create();
-        $user = factory('App\User')->create();
-        $this->actingAs($user);
-        $post->like();
-        $this->assertEquals(1, $post->likesCount());
+        $this->post->like();
+        $this->assertEquals(1, $this->post->likesCount());
     }
 }
