@@ -18,10 +18,8 @@ class CommentsTest extends TestCase
 
     /** @test */
     public function a_comment_belongs_to_a_post() {
-        $this->signIn();
-        $post = $this->createPost();
-        $comment = $this->createComment(['post_id' => $post->id]);
-        $this->assertEquals($post->id, $comment->post()->first()->id);
+        $comment = $this->createComment();
+        $this->assertNotEquals(0, $comment->post()->first()->id);
     }
 
     /** @test */
