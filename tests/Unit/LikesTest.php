@@ -63,7 +63,7 @@ class LikesTest extends TestCase
 
     /** @test */
     public function a_user_can_unlike_a_comment() {
-        $comment = $this->createPost();
+        $comment = $this->createComment();
         $comment->like();
         $comment->unlike();
         $this->assertDatabaseMissing('likes', [
@@ -76,7 +76,7 @@ class LikesTest extends TestCase
 
     /** @test */
     public function a_comment_knows_how_many_likes_it_has() {
-        $comment = $this->createPost();
+        $comment = $this->createComment();
         $comment->like();
         $this->assertEquals(1, $comment->likesCount());
     }
