@@ -11,17 +11,14 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Auth::routes();
 
 Route::resource('posts', 'PostsController');
-
+Route::patch('/posts/{post}/like', 'PostsController@like');
+Route::patch('/posts/{post}/unlike', 'PostsController@unlike');
 Route::post('/posts/{post}/comments', 'CommentsController@store');
 Route::get('/comments/{comment}/edit', 'CommentsController@edit');
 Route::patch('/comments/{comment}/like', 'CommentsController@like');
 Route::patch('/comments/{comment}/unlike', 'CommentsController@unlike');
 Route::patch('/comments/{comment}', 'CommentsController@update');
 Route::delete('/comments/{comment}', 'CommentsController@destroy');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

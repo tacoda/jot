@@ -4,52 +4,81 @@
 
 @section('content')
     <h1 class="title">{{ $post->title }}</h1>
+    <h3 class="post-author">{{ $post->owner()->first()->name }}</h3>
+    <hr />
 
     <div class="content">
-        {{ $post->content }}
-
-        @can('update', $post)
-        <p>
-            <a href="/posts/{{ $post->id }}/edit">Edit</a>
+        <p class="paragraph">
+            {{ $post->content }}
         </p>
-        @endcan
+
+        <p>
+            <i class="fas fa-thumbs-up"></i> {{ $post->likesCount() }}
+        </p>
+
+        @if(auth()->check())
+            @can('update', $post)
+                <p>
+                    <a href="/posts/{{ $post->id }}/edit">Edit</a>
+                </p>
+            @endcan
+            @if(! $post->isLiked())
+                <form method="POST" action="/posts/{{ $post->id }}/like">
+                    @method('PATCH')
+                    @csrf
+                    <button type="submit" class="button is-link" onClick="this.form.submit()"><i class="fas fa-thumbs-up"></i></button>
+                </form>
+            @else
+                <form method="POST" action="/posts/{{ $post->id }}/unlike">
+                    @method('PATCH')
+                    @csrf
+                    <button type="submit" class="button is-danger" onClick="this.form.submit()"><i class="fas fa-thumbs-down"></i></button>
+                </form>
+            @endif
+        @endif
     </div>
 
     @if($post->comments->count())
+        <hr />
+        <h1 class="title">Comments</h1>
         @foreach($post->comments as $comment)
             <div class="box">
-                <div>
-                    <p>
-                        {{ $comment->owner()->first()->name }} commented:
-                    </p>
-                    <p>
-                        {{ $comment->content }}
-                    </p>
-
-                    <p>
-                        Likes: {{ $comment->likesCount() }}
-                    </p>
-
-                    @can('update', $comment)
-                    <p>
-                        <a href="/comments/{{ $comment->id }}/edit">Edit</a>
-                    </p>
-                    @endcan
-                    @if(auth()->check())
-                        @if(! $comment->isLiked())
-                        <form method="POST" action="/comments/{{ $comment->id }}/like">
-                            @method('PATCH')
-                            @csrf
-                            <button type="submit" class="button is-link" onClick="this.form.submit()"><i class="fas fa-thumbs-up"></i></button>
-                        </form>
-                        @else
-                        <form method="POST" action="/comments/{{ $comment->id }}/unlike">
-                            @method('PATCH')
-                            @csrf
-                            <button type="submit" class="button is-danger" onClick="this.form.submit()"><i class="fas fa-thumbs-down"></i></button>
-                        </form>
+                <div class="columns">
+                    <div class="column is-one-quarter">
+                        <p class="comment-author">
+                            {{ $comment->owner()->first()->name }}
+                        </p>
+                        <p>
+                            <i class="fas fa-thumbs-up"></i> {{ $comment->likesCount() }}
+                        </p>
+                        @if(auth()->check())
+                            @if(! $comment->isLiked())
+                                <form method="POST" action="/comments/{{ $comment->id }}/like">
+                                    @method('PATCH')
+                                    @csrf
+                                    <button type="submit" class="button is-link" onClick="this.form.submit()"><i class="fas fa-thumbs-up"></i></button>
+                                </form>
+                            @else
+                                <form method="POST" action="/comments/{{ $comment->id }}/unlike">
+                                    @method('PATCH')
+                                    @csrf
+                                    <button type="submit" class="button is-danger" onClick="this.form.submit()"><i class="fas fa-thumbs-down"></i></button>
+                                </form>
+                            @endif
                         @endif
-                    @endif
+                    </div>
+                    <div class="column comment-content">
+                        <p class="paragraph">
+                            {{ $comment->content }}
+                        </p>
+                        @if(auth()->check())
+                            @can('update', $comment)
+                                <p>
+                                    <a href="/comments/{{ $comment->id }}/edit">Edit</a>
+                                </p>
+                            @endcan
+                        @endif
+                    </div>
                 </div>
             </div>
         @endforeach

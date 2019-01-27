@@ -16,6 +16,7 @@ class CommentsController extends Controller
     public function store(Request $request, Post $post) {
         $attributes = $this->validateComment();
         $post->addComment($attributes);
+        session()->flash('message', 'Comment created!');
         return back();
     }
 
@@ -29,6 +30,7 @@ class CommentsController extends Controller
         $attributes = $this->validateComment();
         $comment->update($attributes);
         $postId = $comment->post()->first()->id;
+        session()->flash('message', 'Comment updated!');
         return redirect('/posts/' . $postId);
     }
 

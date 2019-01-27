@@ -44,13 +44,28 @@ class PostsController extends Controller
         $this->authorize('update', $post);
         $attributes = $this->validatePost();
         $post->update($attributes);
-        return redirect('/posts');
+        session()->flash('message', 'Post updated!');
+        return redirect('/posts/' . $post->id);
     }
 
     public function destroy(Post $post) {
         $this->authorize('update', $post);
         $post->delete();
         return redirect('/posts');
+    }
+
+    public function like(Post $post) {
+        if(! $post->isLiked()) {
+            $post->like();
+        }
+        return back();
+    }
+
+    public function unlike(Post $post) {
+        if($post->isLiked()) {
+            $post->unlike();
+        }
+        return back();
     }
 
     private function validatePost() {

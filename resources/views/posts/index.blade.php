@@ -7,9 +7,21 @@
 
     @foreach($posts as $post)
         <div class="box">
-            <a href="/posts/{{ $post->id }}">
-                <h3>{{ $post->title }}</h3>
-            </a>
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <p>
+                        <i class="fas fa-thumbs-up"></i> {{ $post->likesCount() }}
+                    </p>
+                </div>
+                <div class="column">
+                    <h3>
+                        <a href="/posts/{{ $post->id }}">
+                            {{ $post->title }}
+                        </a>
+                    </h3>
+                    <h3>{{ $post->owner()->first()->name }}</h3>
+                </div>
+            </div>
         </div>
     @endforeach
 @endsection
