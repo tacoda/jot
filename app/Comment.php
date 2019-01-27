@@ -9,7 +9,7 @@ class Comment extends Model
 {
     use Likeable;
 
-    protected $fillable = ['content'];
+    protected $fillable = ['content', 'owner_id'];
 
     public function post() {
         return $this->belongsTo(Post::class);

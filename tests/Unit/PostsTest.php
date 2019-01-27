@@ -25,6 +25,7 @@ class PostsTest extends TestCase
 
     /** @test */
     public function a_post_can_have_comments() {
+        $this->signIn();
         $post = $this->createPost();
         $post->addComment(['content' => 'My First Comment']);
         $post->addComment(['content' => 'My Second Comment']);

@@ -26,6 +26,12 @@
                 <p>
                     Likes: {{ $comment->likesCount() }}
                 </p>
+
+                @can('update', $comment)
+                <p>
+                    <a href="/comments/{{ $comment->id }}/edit">Edit</a>
+                </p>
+                @endcan
                 @if(! $comment->isLiked())
                 <form method="POST" action="/comments/{{ $comment->id }}/like">
                     @method('PATCH')

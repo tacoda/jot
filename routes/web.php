@@ -16,8 +16,11 @@ Route::get('/', 'HomeController@index');
 Route::resource('posts', 'PostsController');
 
 Route::post('/posts/{post}/comments', 'CommentsController@store');
+Route::get('/comments/{comment}/edit', 'CommentsController@edit');
 Route::patch('/comments/{comment}/like', 'CommentsController@like');
 Route::patch('/comments/{comment}/unlike', 'CommentsController@unlike');
+Route::patch('/comments/{comment}', 'CommentsController@update');
+Route::delete('/comments/{comment}', 'CommentsController@destroy');
 
 Auth::routes();
 

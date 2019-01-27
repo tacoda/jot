@@ -19,10 +19,25 @@ class CommentsController extends Controller
         return back();
     }
 
-//    public function update(Request $request, Comment $comment) {
-//        $request->get('vote') === 'up' ? $comment->upvote() : $comment->downvote();
-//        return back();
-//    }
+    public function edit(Comment $comment) {
+        $this->authorize('update', $comment);
+        return view('comments.edit')->with(['comment' => $comment]);
+    }
+
+    public function update(Comment $comment) {
+        $this->authorize('update', $comment);
+        $attributes = $this->validateComment();
+        $comment->update($attributes);
+        $postId = $comment->post()->first()->id;
+        return redirect('/posts/' . $postId);
+    }
+
+    public function destroy(Comment $comment) {
+        $this->authorize('update', $comment);
+        $postId = $comment->post()->first()->id;
+        $comment->delete();
+        return redirect('/posts/' . $postId);
+    }
 
     public function like(Comment $comment) {
         if(! $comment->isLiked()) {
@@ -37,9 +52,6 @@ class CommentsController extends Controller
         }
         return back();
     }
-
-    // TODO: Authorization for edit and delete
-    // TODO: Validation for edit
 
     private function validateComment() {
         return request()->validate([

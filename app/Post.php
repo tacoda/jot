@@ -22,6 +22,7 @@ class Post extends Model
     }
 
     public function addComment($comment) {
+        $comment['owner_id'] = auth()->id();
         $this->comments()->create($comment);
     }
 
